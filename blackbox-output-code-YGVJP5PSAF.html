@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzaria Forneiro - Cidade Nova Itu | Delivery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        .cart-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .cart-btn:hover {
+            background: white;
+            color: #ff6b35;
+            transform: translateY(-2px);
+        }
+
+        .cart-count {
+            background: #fff;
+            color: #ff6b35;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23ff6b35" width="1200" height="800"/><circle fill="%23f7931e" opacity="0.3" cx="200" cy="200" r="150"/><circle fill="%23ff8c42" opacity="0.4" cx="1000" cy="600" r="200"/><path fill="%23ffb366" opacity="0.2" d="M300 400 Q500 300 700 450 Q900 550 1100 400"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+
+        .order-btn {
+            background: #fff;
+            color: #ff6b35;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
+        .order-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255,255,255,0.4);
+        }
+
+        /* Status Section */
+        .status-section {
+            padding: 3rem 2rem;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .status-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .status-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .status-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .status-icon {
+            font-size: 3rem;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .pizza-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pizza-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+
+        .pizza-image {
+            height: 250px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+            position: relative;
+        }
+
+        .pizza-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .pizza-content {
+            padding: 1.5rem;
+        }
+
+        .pizza-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .pizza-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .pizza-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .add-cart {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-cart:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(255,107,53,0.4);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #ff6b35;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff5f0;
+            border-radius: 50%;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem 1rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-pizza-slice"></i>
+                Forneiro Cidade Nova
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Cardápio</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <a href="#" class="cart-btn" id="cartBtn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content fade-in-up">
+            <h1>Pizzaria Forneiro</h1>
+            <div class="rating">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <span>4.1 (238 avaliações)</span>
+            </div>
+            <a href="#menu" class="order-btn">Pedir Agora</a>
+        </div>
+    </section>
+
+    <!-- Status Section -->
+    <section class="status-section">
+        <div class="status-grid">
+            <div class="status-card fade-in-up">
+                <div class="status-icon">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <h3>Entrega Rápida</h3>
+                <p>Entrega em até 45 minutos na Cidade Nova e região</p>
+            </div>
+            <div class="status-card fade-in-up">
+                <div class="status-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Aberto Hoje</h3>
+                <p>Terça a Domingo | 18:00 às 23:00</p>
+            </div>
+            <div class="status-card fade-in-up">
+                <div class="status-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Entrega Sem Contato</h3>
+                <p>Segurança e higiene em primeiro lugar</p>
+            </div>
+            <div class="status-card fade-in-up">
+                <div class="status-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>R. Andradina, 1 - sala 7</h3>
+                <p>Cidade Nova, Itu - SP, 13308-000</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <h2 class="section-title fade-in-up">Nosso Cardápio</h2>
+        <div class="menu-grid">
+            <div class="pizza-card fade-in-up">
+                <div class="pizza-image">
+                    <i class="fas fa-cheese"></i>
+                </div>
+                <div class="pizza-content">
+                    <h3 class="pizza-name">Pizza Margherita</h3>
+                    <div class="pizza-price">R$ 42,90</div>
+                    <p class="pizza-description">Massa especial, molho de tomate artesanal, muçarela selecionada e manjericão fresco. Clássico italiano.</p>
+                    <button class="add-cart" onclick="addToCart('Margherita', 42.90)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <div class="pizza-card fade-in-up">
+                <div class="pizza-image">
+                    <i class="fas fa-pepper-hot"></i>
+                </div>
+                <div class="pizza-content">
+                    <h3 class="pizza-name">Calabresa Especial</h3>
+                    <div class="pizza-price">R$ 48,90</div>
+                    <p class="pizza-description">Calabresa fatiada, cebola roxa, orégano e queijo muçarela derretido. Perfeita para os amantes de sabor forte.</p>
+                    <button class="add-cart" onclick="addToCart('Calabresa', 48.90)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <div class="pizza-card fade-in-up">
+                <div class="pizza-image">
+                    <i class="fas fa-drumstick-bite"></i>
+                </div>
+                <div class="pizza-content">
+                    <h3 class="pizza-name">Frango com Catupiry</h3>
+                    <div class="pizza-price">R$ 52,90</div>
+                    <p class="pizza-description">Frango desfiado, catupiry cremoso, muçarela e orégano. Combinação imbatível!</p>
+                    <button class="add-cart" onclick="addToCart('Frango Catupiry', 52.90)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <div class="pizza-card fade-in-up">
+                <div class="pizza-image">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="pizza-content">
+                    <h3 class="pizza-name">Brigadeiro Pizza Doce</h3>
+                    <div class="pizza-price">R$ 38,90</div>
+                    <p class="pizza-description">Nossa pizza doce mais pedida! Brigadeiro cremoso com granulado e morangos frescos.</p>
+                   
